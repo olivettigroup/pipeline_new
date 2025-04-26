@@ -157,7 +157,7 @@ if __name__ == "__main__":
     failed_records = list(scratch.find({'download_succeeded': False}))
     
     output_folder = '/data/scratch'
-    api_keys = {"Elsevier": 'e021353a6dcce26b682b02871704f6d6', "Wiley": "e1688e6c-af9d-43db-983c-22f608baa6c4"}
+    api_keys = {"Elsevier": 'elsevier_key', "Wiley": "wiley_key"}
     integrator = DOIIntegrator(output_folder, api_keys)
     
     for record in tqdm(failed_records, total=len(failed_records)):
