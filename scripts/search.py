@@ -100,7 +100,7 @@ class DimensionsExtractor:
 
 class LensExtractor:
     def __init__(self):
-        self.token ='L8xLiwyNGhfVp4ESZpX2GxeQgJy6tKiIDnPtmV9q9bzkriuINApV'
+        self.token = "token"
         self.url = "https://api.lens.org/scholarly/search"
 
     def extract(self, keyword, size=100):
