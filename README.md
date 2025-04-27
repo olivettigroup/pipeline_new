@@ -12,7 +12,7 @@ The system is designed to handle large-scale ingestion and structuring of resear
 ## Repository Structure
 
 ```plaintext
-/scripts/           # Python modules: search.py, download.py, parser.py
+/scripts/           # Python modules: search.py, download.py, parse.py (for external users)
 /wiki/              # GitHub Wiki contains full documentation
 /data/scratch/      # Downloaded full-text articles (local storage during runs)
 /docs/ (optional)   # Additional notes or local copies of documentation
@@ -24,9 +24,9 @@ The system is designed to handle large-scale ingestion and structuring of resear
 
 | Script | Purpose |
 | :--- | :--- |
-| `scripts/search.py` | Searches external APIs (Crossref, Dimensions, Lens) based on user keywords and stores new DOIs into the scratch database. |
-| `scripts/download.py` | Downloads full-text articles based on DOIs, using publisher APIs or manual sources. |
-| `scripts/parse.py` | Parses downloaded files into structured sections and paragraphs, then inserts them into MongoDB. |
+| `search.py` | Searches external APIs (Crossref, Dimensions, Lens) based on user-provided keywords. Requires command-line arguments for keywords, size, and given_name. |
+| `download.py` | Downloads full-text articles based on DOIs, using publisher APIs or manual sources. |
+| `parse.py` | Parses downloaded files into structured sections and paragraphs, then inserts them into MongoDB. |
 
 ---
 
@@ -34,10 +34,12 @@ The system is designed to handle large-scale ingestion and structuring of resear
 
 Depending on your access, please follow one of the two paths:
 
+---
+
 ### Option A: Olivetti Lab Members (Spatula Server Users)
 
 1. **Directory:**  
-   Scripts are already located at `/home/jupyter/Pipeline`.
+   Scripts are located directly under `/home/jupyter/Pipeline`.
 
 2. **Environment:**  
    Activate the existing environment:
@@ -46,12 +48,19 @@ Depending on your access, please follow one of the two paths:
    conda activate pipeline_env
    ```
 
-3. **Running Scripts:**
+3. **Running the Pipeline:**
 
    ```bash
-   python scripts/search.py
-   python scripts/download.py
-   python scripts/parse.py
+   cd /home/jupyter/Pipeline
+
+   # 1. Search for papers (specify keywords, size, and given_name)
+   python search.py --keywords "plastic" "ozone" "machine learning" --size 300 --given_name "plastic_ozone_search"
+
+   # 2. Download papers
+   python download.py
+
+   # 3. Parse downloaded papers
+   python parse.py
    ```
 
 4. **No need to clone the repository or install dependencies.**
@@ -85,13 +94,39 @@ Depending on your access, please follow one of the two paths:
    pip install dimcli==1.4
    ```
 
-5. **Running Scripts:**
+5. **Running the Pipeline:**
 
    ```bash
-   python scripts/search.py
-   python scripts/download.py
-   python scripts/parse.py
+   cd scripts
+
+   # 1. Search for papers (specify keywords, size, and given_name)
+   python search.py --keywords "plastic" "ozone" "machine learning" --size 300 --given_name "plastic_ozone_search"
+
+   # 2. Download papers
+   python download.py
+
+   # 3. Parse downloaded papers
+   python parse.py
    ```
+
+---
+
+## Notes on Usage
+
+- `search.py` **requires** the following arguments:
+  - `--keywords`: One or more search terms.
+  - `--size`: Number of DOIs to retrieve per source.
+  - `--given_name`: Label to identify this search batch.
+
+- Example:
+
+  ```bash
+  python search.py --keywords "solid state battery" "energy storage" --size 300 --given_name "battery_search"
+  ```
+
+- Always ensure the MongoDB server is running and accessible before starting the pipeline.
+
+- All downloads happen under the `/data/scratch/` directory.
 
 ---
 
