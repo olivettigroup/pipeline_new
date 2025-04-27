@@ -1,8 +1,8 @@
-# Pipeline-2
+# pipeline_new
 
 ## Overview
 
-**Pipeline-2** is a modular system for automated literature search, download, and parsing, primarily focused on scientific papers in materials science and sustainability.  
+**pipeline_new** is a modular system for automated literature search, download, and parsing, primarily focused on scientific papers in materials science and sustainability.  
 It supports asynchronous operation, publisher-specific access methods, structured parsing, and organized database storage.
 
 The system is designed to handle large-scale ingestion and structuring of research papers for downstream analysis, machine learning, and knowledge graph building.
@@ -24,55 +24,95 @@ The system is designed to handle large-scale ingestion and structuring of resear
 
 | Script | Purpose |
 | :--- | :--- |
-| `search.py` | Searches external APIs (Crossref, Dimensions, Lens) based on user keywords and stores new DOIs into the scratch database. |
-| `download.py` | Downloads full-text articles based on DOIs, using publisher APIs or manual sources. |
-| `parser.py` | Parses downloaded files into structured sections and paragraphs, then inserts them into MongoDB. |
+| `scripts/search.py` | Searches external APIs (Crossref, Dimensions, Lens) based on user keywords and stores new DOIs into the scratch database. |
+| `scripts/download.py` | Downloads full-text articles based on DOIs, using publisher APIs or manual sources. |
+| `scripts/parse.py` | Parses downloaded files into structured sections and paragraphs, then inserts them into MongoDB. |
 
 ---
 
-## How to Use
+## Setup Instructions
 
-### 1. Setup
+Depending on your access, please follow one of the two paths:
 
-- Install required dependencies (Python 3.10+ recommended).
-- Ensure MongoDB server is running and accessible.
-- Recommended to use the provided Conda environment: `vineeth_10.1`.
+### Option A: Olivetti Lab Members (Spatula Server Users)
 
-```bash
-conda activate vineeth_10.1
-cd /home/jupyter/vineeth/pipeline-2
-```
+1. **Directory:**  
+   Scripts are already located at `/home/jupyter/Pipeline`.
 
-### 2. Running the Pipeline
+2. **Environment:**  
+   Activate the existing environment:
 
-Manually:
+   ```bash
+   conda activate pipeline_env
+   ```
 
-```bash
-# Search for papers
-python scripts/search.py --keywords "solid state battery" "energy storage" --given_name "battery_search"
+3. **Running Scripts:**
 
-# Download papers
-python scripts/download.py
+   ```bash
+   python scripts/search.py
+   python scripts/download.py
+   python scripts/parse.py
+   ```
 
-# Parse downloaded papers
-python scripts/parser.py
-```
+4. **No need to clone the repository or install dependencies.**
 
-Or use a batch script to run all stages (see examples in the wiki).
+---
+
+### Option B: External Users (New Users / Outside Lab)
+
+1. **Clone the Repository:**
+
+   ```bash
+   git clone https://github.com/YourUsername/pipeline_new.git
+   cd pipeline_new
+   ```
+
+2. **Create the Conda Environment:**
+
+   ```bash
+   conda env create -f environment.yaml
+   ```
+
+3. **Activate the Environment:**
+
+   ```bash
+   conda activate pipeline_env
+   ```
+
+4. **Install Additional Pip Packages:**
+
+   ```bash
+   pip install dimcli==1.4
+   ```
+
+5. **Running Scripts:**
+
+   ```bash
+   python scripts/search.py
+   python scripts/download.py
+   python scripts/parse.py
+   ```
 
 ---
 
 ## Documentation
 
-📚 Full usage instructions, module guides, and best practices are available in the [Wiki](../../wiki).
+📚 Full usage instructions, pipeline flow, module guides, and best practices are available in the [Wiki](../../wiki).
 
 Start here: [Overview](../../wiki/Overview)
+
+---
+
+## Author
+
+- Vineeth Venugopal  
+- [vinven7@gmail.com](mailto:vinven7@gmail.com)
 
 ---
 
 ## Acknowledgements
 
 This project was developed to support data-driven materials discovery and automated scientific knowledge extraction.  
-Special thanks to contributors and maintainers for expanding the pipeline's functionality.
+Special thanks to all contributors and maintainers for expanding and improving the pipeline's functionality.
 
 ---
