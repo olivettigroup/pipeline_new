@@ -24,7 +24,7 @@ The system is designed to handle large-scale ingestion and structuring of resear
 
 | Script | Purpose |
 | :--- | :--- |
-| `search.py` | Searches external APIs (Crossref, Dimensions, Lens) based on user-provided keywords. Requires command-line arguments for keywords, size, and given_name. |
+| `search.py` | Searches external APIs (Crossref, Dimensions, Lens) based on user-provided keywords. Requires command-line arguments for keywords and size. |
 | `download.py` | Downloads full-text articles based on DOIs, using publisher APIs or manual sources. |
 | `parse.py` | Parses downloaded files into structured sections and paragraphs, then inserts them into MongoDB. |
 
@@ -53,8 +53,8 @@ Depending on your access, please follow one of the two paths:
    ```bash
    cd /home/jupyter/Pipeline
 
-   # 1. Search for papers (specify keywords, size, and given_name)
-   python search.py --keywords "plastic" "ozone" "machine learning" --size 300 --given_name "plastic_ozone_search"
+   # 1. Search for papers (specify keywords and size)
+   python search.py --keywords "plastic" "ozone" "machine learning" --size 300
 
    # 2. Download papers
    python download.py
@@ -99,8 +99,8 @@ Depending on your access, please follow one of the two paths:
    ```bash
    cd scripts
 
-   # 1. Search for papers (specify keywords, size, and given_name)
-   python search.py --keywords "plastic" "ozone" "machine learning" --size 300 --given_name "plastic_ozone_search"
+   # 1. Search for papers (specify keywords and size)
+   python search.py --keywords "plastic" "ozone" "machine learning" --size 300
 
    # 2. Download papers
    python download.py
@@ -116,12 +116,11 @@ Depending on your access, please follow one of the two paths:
 - `search.py` **requires** the following arguments:
   - `--keywords`: One or more search terms.
   - `--size`: Number of DOIs to retrieve per source.
-  - `--given_name`: Label to identify this search batch.
 
 - Example:
 
   ```bash
-  python search.py --keywords "solid state battery" "energy storage" --size 300 --given_name "battery_search"
+  python search.py --keywords "solid state battery" "energy storage" --size 300
   ```
 
 - Always ensure the MongoDB server is running and accessible before starting the pipeline.
