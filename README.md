@@ -7,6 +7,8 @@ It supports asynchronous operation, publisher-specific access methods, structure
 
 The system is designed to handle large-scale ingestion and structuring of research papers for downstream analysis, machine learning, and knowledge graph building.
 
+## 📽️ Pipeline Tutorial Video
+
 [![Olivetti lab literature walkthrough](https://github.com/user-attachments/assets/b10f0d9e-c7bb-4dd4-aa4b-eaaee6c0767c)](https://youtu.be/FlPml1f0VGU?si=7HPsXWVaaQn3tZDp)
 
 
